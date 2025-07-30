@@ -1,2 +1,976 @@
-# Website-AlsintanTPKaltim
-WEB DATA
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Alokasi Bantuan Alat Pertanian 2020-2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .image-preview { max-width: 200px; max-height: 150px; object-fit: cover; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-green-50 min-h-screen">
+    <div class="container mx-auto px-4 py-6">
+        <!-- Header -->
+        <div class="text-center mb-8 fade-in">
+            <h1 class="text-4xl font-bold text-blue-800 mb-2">🚜 Sistem Alokasi Bantuan Alat Pertanian</h1>
+            <p class="text-gray-600">Program Bantuan Pascapanen & Prapanen 2020-2025</p>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="flex justify-center mb-8">
+            <div class="bg-white rounded-lg shadow-md p-1 flex flex-wrap">
+                <button id="inputTab" class="px-4 py-2 rounded-md bg-blue-600 text-white font-medium transition-all text-sm">
+                    📝 Input Data
+                </button>
+                <button id="monitoringTab" class="px-4 py-2 rounded-md text-gray-600 hover:bg-gray-100 font-medium transition-all text-sm">
+                    📊 Monitoring
+                </button>
+                <button id="laporanTab" class="px-4 py-2 rounded-md text-gray-600 hover:bg-gray-100 font-medium transition-all text-sm">
+                    📈 Laporan
+                </button>
+                <button id="dashboardTab" class="px-4 py-2 rounded-md text-gray-600 hover:bg-gray-100 font-medium transition-all text-sm">
+                    🎯 Dashboard
+                </button>
+            </div>
+        </div>
+
+        <!-- Input Section -->
+        <div id="inputSection" class="fade-in">
+            <div class="bg-white rounded-xl shadow-lg p-6 max-w-6xl mx-auto">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
+                    🎯 Form Alokasi Bantuan Alat Pertanian
+                </h2>
+                
+                <form id="bantuanForm" class="space-y-6">
+                    <!-- Informasi Program -->
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-blue-800 mb-4">📋 Informasi Program</h3>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Tahun Program</label>
+                                <select id="tahunProgram" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                    <option value="">Pilih Tahun</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Alokasi</label>
+                                <input type="date" id="tanggalAlokasi" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Kategori Program</label>
+                                <select id="kategoriProgram" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                    <option value="">Pilih Kategori</option>
+                                    <option value="Prapanen">🌱 Prapanen</option>
+                                    <option value="Pascapanen">🌾 Pascapanen</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lokasi -->
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-green-800 mb-4">📍 Informasi Lokasi</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Provinsi</label>
+                                <select id="provinsi" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                    <option value="">Pilih Provinsi</option>
+                                    <option value="Kalimantan Timur">Kalimantan Timur</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Kabupaten/Kota</label>
+                                <input type="text" id="kabupaten" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan kabupaten/kota" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Kecamatan</label>
+                                <input type="text" id="kecamatan" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan kecamatan" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Desa</label>
+                                <input type="text" id="desa" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan desa" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kelompok Tani -->
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-yellow-800 mb-4">👥 Informasi Kelompok Tani</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nama Gapoktan/Poktan</label>
+                                <input type="text" id="namaKelompok" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan nama kelompok" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nama Ketua</label>
+                                <input type="text" id="namaKetua" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan nama ketua" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detail Alat -->
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-purple-800 mb-4">🔧 Detail Alat Bantuan</h3>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Jenis Alat</label>
+                                <input type="text" id="jenisAlat" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Contoh: Traktor, Rice Milling Unit" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Merk Alat</label>
+                                <input type="text" id="merkAlat" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan merk alat" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Jumlah Unit</label>
+                                <input type="number" id="jumlahUnit" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="1" required>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4 mt-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Kondisi Alat</label>
+                                <select id="kondisiAlat" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                    <option value="">Pilih Kondisi</option>
+                                    <option value="Baru">Baru</option>
+                                    <option value="Baik">Baik</option>
+                                    <option value="Cukup">Cukup</option>
+                                    <option value="Perlu Perbaikan">Perlu Perbaikan</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Status Pemanfaatan</label>
+                                <select id="statusPemanfaatan" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                    <option value="">Pilih Status</option>
+                                    <option value="Sudah Dimanfaatkan">✅ Sudah Dimanfaatkan</option>
+                                    <option value="Belum Dimanfaatkan">❌ Belum Dimanfaatkan</option>
+                                    <option value="Dalam Proses">⏳ Dalam Proses</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pemanfaatan Alat -->
+                    <div id="pemanfaatanSection" class="bg-indigo-50 p-4 rounded-lg hidden">
+                        <h3 class="font-semibold text-indigo-800 mb-4">📊 Data Pemanfaatan Alat</h3>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Bulan Mulai Pemanfaatan</label>
+                                <select id="bulanPemanfaatan" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Pilih Bulan</option>
+                                    <option value="Januari">Januari</option>
+                                    <option value="Februari">Februari</option>
+                                    <option value="Maret">Maret</option>
+                                    <option value="April">April</option>
+                                    <option value="Mei">Mei</option>
+                                    <option value="Juni">Juni</option>
+                                    <option value="Juli">Juli</option>
+                                    <option value="Agustus">Agustus</option>
+                                    <option value="September">September</option>
+                                    <option value="Oktober">Oktober</option>
+                                    <option value="November">November</option>
+                                    <option value="Desember">Desember</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Rata-rata Penggunaan/Hari (Jam)</label>
+                                <input type="number" id="penggunaanHarian" step="0.5" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="0">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Penggunaan dalam 1 Tahun (Hari)</label>
+                                <input type="number" id="penggunaanTahunan" min="0" max="365" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="0">
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4 mt-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Biaya Sewa Alat (Rp/Hari)</label>
+                                <input type="number" id="biayaSewa" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="0">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Hasil dari Alat</label>
+                                <select id="hasilAlat" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Pilih Hasil</option>
+                                    <option value="Sangat Memuaskan">Sangat Memuaskan</option>
+                                    <option value="Memuaskan">Memuaskan</option>
+                                    <option value="Cukup">Cukup</option>
+                                    <option value="Kurang Memuaskan">Kurang Memuaskan</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kendala dan Foto -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Kendala yang Dihadapi</label>
+                            <textarea id="kendala" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Jelaskan kendala yang dihadapi dalam pemanfaatan alat"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Upload Foto Alat</label>
+                            <input type="file" id="fotoAlat" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <div id="imagePreview" class="mt-2"></div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="flex justify-end pt-4">
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-md">
+                            💾 Simpan Data Bantuan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Monitoring Section -->
+        <div id="monitoringSection" class="hidden fade-in">
+            <div class="bg-white rounded-xl shadow-lg p-6 max-w-7xl mx-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-semibold text-gray-800">📊 Monitoring Bantuan Alat</h2>
+                    <div class="flex gap-3">
+                        <select id="filterTahun" class="px-3 py-2 border border-gray-300 rounded-lg">
+                            <option value="">Semua Tahun</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                        </select>
+                        <select id="filterKategori" class="px-3 py-2 border border-gray-300 rounded-lg">
+                            <option value="">Semua Kategori</option>
+                            <option value="Prapanen">Prapanen</option>
+                            <option value="Pascapanen">Pascapanen</option>
+                        </select>
+                        <input type="text" id="searchMonitoring" placeholder="Cari..." class="px-3 py-2 border border-gray-300 rounded-lg">
+                        <button id="exportExcelBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors">
+                            📊 Export Excel
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse bg-white text-sm">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="border border-gray-200 px-3 py-2 text-left font-semibold text-gray-700">No</th>
+                                <th class="border border-gray-200 px-3 py-2 text-left font-semibold text-gray-700">Tahun</th>
+                                <th class="border border-gray-200 px-3 py-2 text-left font-semibold text-gray-700">Lokasi</th>
+                                <th class="border border-gray-200 px-3 py-2 text-left font-semibold text-gray-700">Kelompok</th>
+                                <th class="border border-gray-200 px-3 py-2 text-left font-semibold text-gray-700">Ketua</th>
+                                <th class="border border-gray-200 px-3 py-2 text-left font-semibold text-gray-700">Alat</th>
+                                <th class="border border-gray-200 px-3 py-2 text-left font-semibold text-gray-700">Jumlah</th>
+                                <th class="border border-gray-200 px-3 py-2 text-left font-semibold text-gray-700">Status</th>
+                                <th class="border border-gray-200 px-3 py-2 text-left font-semibold text-gray-700">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="monitoringTableBody">
+                            <tr>
+                                <td colspan="9" class="border border-gray-200 px-3 py-8 text-center text-gray-500">
+                                    Belum ada data bantuan. Silakan input data terlebih dahulu.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Laporan Section -->
+        <div id="laporanSection" class="hidden fade-in">
+            <div class="bg-white rounded-xl shadow-lg p-6 max-w-6xl mx-auto">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6">📈 Laporan Bantuan Alat Pertanian</h2>
+                
+                <!-- Summary Cards -->
+                <div class="grid md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-lg">
+                        <div class="text-2xl font-bold" id="totalBantuan">0</div>
+                        <div class="text-blue-100">Total Bantuan</div>
+                    </div>
+                    <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-lg">
+                        <div class="text-2xl font-bold" id="totalPrapanen">0</div>
+                        <div class="text-green-100">Alat Prapanen</div>
+                    </div>
+                    <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white p-6 rounded-lg">
+                        <div class="text-2xl font-bold" id="totalPascapanen">0</div>
+                        <div class="text-yellow-100">Alat Pascapanen</div>
+                    </div>
+                    <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-6 rounded-lg">
+                        <div class="text-2xl font-bold" id="totalDimanfaatkan">0</div>
+                        <div class="text-purple-100">Sudah Dimanfaatkan</div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-800 mb-4">Distribusi per Tahun</h3>
+                        <div id="chartTahun" class="h-64 flex items-center justify-center text-gray-500">
+                            Grafik akan muncul setelah ada data
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-800 mb-4">Status Pemanfaatan</h3>
+                        <div id="chartStatus" class="h-64 flex items-center justify-center text-gray-500">
+                            Grafik akan muncul setelah ada data
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboardSection" class="hidden fade-in">
+            <div class="bg-white rounded-xl shadow-lg p-6 max-w-6xl mx-auto">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6">🎯 Dashboard Eksekutif</h2>
+                
+                <!-- Key Metrics -->
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 text-white p-6 rounded-lg">
+                        <div class="text-3xl font-bold" id="totalUnit">0</div>
+                        <div class="text-indigo-100">Total Unit Alat</div>
+                    </div>
+                    <div class="bg-gradient-to-r from-teal-500 to-teal-600 text-white p-6 rounded-lg">
+                        <div class="text-3xl font-bold" id="totalKelompok">0</div>
+                        <div class="text-teal-100">Kelompok Tani</div>
+                    </div>
+                    <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-6 rounded-lg">
+                        <div class="text-3xl font-bold" id="persentasePemanfaatan">0%</div>
+                        <div class="text-orange-100">Tingkat Pemanfaatan</div>
+                    </div>
+                </div>
+
+                <!-- Performance Indicators -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-800 mb-4">Top 5 Provinsi</h3>
+                        <div id="topProvinsi" class="space-y-2">
+                            <div class="text-gray-500 text-center py-8">Data akan muncul setelah input</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-800 mb-4">Jenis Alat Terpopuler</h3>
+                        <div id="topAlat" class="space-y-2">
+                            <div class="text-gray-500 text-center py-8">Data akan muncul setelah input</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="detailModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg max-w-4xl w-full max-h-screen overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-semibold text-gray-800">Detail Bantuan Alat</h3>
+                    <button id="closeDetailModal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+                </div>
+                <div id="detailContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 max-w-md mx-4">
+            <div class="text-center">
+                <div class="text-6xl mb-4">✅</div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Data Berhasil Disimpan!</h3>
+                <p class="text-gray-600 mb-6">Data bantuan alat pertanian telah ditambahkan ke sistem.</p>
+                <button id="closeSuccessModal" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data storage
+        let bantuanData = JSON.parse(localStorage.getItem('bantuanAlatData')) || [];
+
+        // Location data for Kalimantan Timur
+        const locationData = {
+            "Balikpapan": {
+                "Balikpapan Kota": ["Klandasan Ilir", "Klandasan Ulu", "Damai", "Margasari", "Gunung Bahagia"],
+                "Balikpapan Selatan": ["Sepinggan", "Sepinggan Raya", "Sumber Rejo", "Gunung Malang"],
+                "Balikpapan Timur": ["Manggar", "Manggar Baru", "Lamaru", "Teritip"],
+                "Balikpapan Tengah": ["Karang Jati", "Karang Rejo", "Kebun Sayur", "Prapatan"],
+                "Balikpapan Utara": ["Graha Indah", "Karang Joang", "Batu Ampar", "Gunung Samarinda"],
+                "Balikpapan Barat": ["Kariangau", "Margahayu", "Mekar Sari"]
+            },
+            "Samarinda": {
+                "Samarinda Kota": ["Bugis", "Pelita", "Sungai Pinang Dalam", "Sungai Pinang Luar"],
+                "Samarinda Seberang": ["Harapan Baru", "Mesjid", "Tenun", "Sungai Keledang"],
+                "Samarinda Ulu": ["Air Hitam", "Dadi Mulya", "Gunung Kelua", "Loa Bakung"],
+                "Samarinda Ilir": ["Karang Asam Ilir", "Karang Asam Ulu", "Selili", "Sidomulyo"],
+                "Samarinda Utara": ["Budaya Pampang", "Lempake", "Sempaja Selatan", "Sempaja Utara"],
+                "Palaran": ["Bantuas", "Rawa Makmur", "Simpang Pasir", "Handil Bakti"],
+                "Loa Janan Ilir": ["Loa Janan Ilir", "Harapan Baru", "Loa Duri Ilir", "Purwosari"],
+                "Sambutan": ["Sambutan", "Makroman", "Pulau Atas", "Sungai Kapih"],
+                "Sungai Kunjang": ["Karang Mumus", "Loa Thok", "Mugirejo", "Sindang Sari"],
+                "Samarinda Kota": ["Pasar Pagi", "Pelabuhan", "Kampung Jawa", "Gunung Lingai"]
+            },
+            "Bontang": {
+                "Bontang Selatan": ["Bontang Kuala", "Gunung Elai", "Satimpo", "Tanjung Laut"],
+                "Bontang Utara": ["Api-Api", "Bontang Baru", "Kanaan", "Lok Tuan"],
+                "Bontang Barat": ["Berbas Pantai", "Berbas Tengah", "Guntung", "Tanjung Laut Indah"]
+            },
+            "Kutai Kartanegara": {
+                "Tenggarong": ["Melayu", "Panji", "Timbau", "Rapak Lambur"],
+                "Samboja": ["Samboja", "Wonosari", "Karya Merdeka", "Sumber Sari"],
+                "Muara Jawa": ["Muara Jawa Ulu", "Muara Jawa Tengah", "Muara Jawa Pesisir", "Adang"],
+                "Sanga-Sanga": ["Sanga-Sanga", "Kampung Baru", "Handil Baru", "Kampung Melayu"],
+                "Loa Kulu": ["Loa Kulu", "Purwajaya", "Margahayu", "Loa Raya"],
+                "Loa Janan": ["Loa Janan", "Harapan Baru", "Loa Duri", "Purwosari"],
+                "Marang Kayu": ["Marang Kayu", "Salok Api", "Wonosari", "Handil Terusan"],
+                "Muara Badak": ["Muara Badak", "Muara Badak Ulu", "Saliki", "Karangan"],
+                "Anggana": ["Anggana", "Muara Samu", "Handil Baru", "Sungai Merdeka"],
+                "Muara Muntai": ["Muara Muntai", "Jantur", "Kedang Murung", "Muara Ohong"],
+                "Kota Bangun": ["Kota Bangun", "Wonosari", "Lamin Pulut", "Sedulang"],
+                "Kenohan": ["Kenohan", "Tanjung Isuy", "Mancong", "Pepas Eheng"],
+                "Kembang Janggut": ["Kembang Janggut", "Lebak Cilong", "Ritan Baru", "Jantur Selatan"],
+                "Tabang": ["Tabang", "Dempar", "Pulau Harapan", "Tabang Lama"],
+                "Waru": ["Waru", "Lebak Mantan", "Kedang Ipil", "Muara Enggelam"],
+                "Sebulu": ["Sebulu", "Pondok Labu", "Perdana", "Manunggal Jaya"],
+                "Tenggarong Seberang": ["Bukit Raya", "Loa Ipuh", "Karang Tunggal", "Loa Tebu"],
+                "Inggeris": ["Inggeris", "Rempanga", "Lebak Cilong", "Tanjung Harapan"],
+                "Muara Wis": ["Muara Wis", "Sekolaq Muara Teweh", "Lebak Mantan", "Muara Lawa"]
+            },
+            "Kutai Timur": {
+                "Sangatta Utara": ["Sangatta Utara", "Teluk Lingga", "Rantau Pulung", "Bengalon"],
+                "Sangatta Selatan": ["Sangatta Selatan", "Swarga Bara", "Teluk Pandan", "Sandaran"],
+                "Bengalon": ["Bengalon", "Sepaso", "Kaliorang", "Sangkima"],
+                "Kaliorang": ["Kaliorang", "Sangkima", "Karangan", "Teluk Dalam"],
+                "Sandaran": ["Sandaran", "Teluk Pandan", "Long Mesangat", "Rantau Pulung"],
+                "Telen": ["Telen", "Muara Lesan", "Lebak Mantan", "Muara Wahau"],
+                "Muara Wahau": ["Muara Wahau", "Lebak Mantan", "Telen", "Muara Bengkal"],
+                "Muara Bengkal": ["Muara Bengkal", "Kongbeng", "Busang", "Batu Engau"],
+                "Kongbeng": ["Kongbeng", "Busang", "Long Apari", "Long Hubung"],
+                "Busang": ["Busang", "Long Apari", "Long Hubung", "Talisayan"],
+                "Long Mesangat": ["Long Mesangat", "Rantau Pulung", "Long Apari", "Muara Ancalong"],
+                "Muara Ancalong": ["Muara Ancalong", "Long Apari", "Long Hubung", "Kaubun"],
+                "Long Hubung": ["Long Hubung", "Kaubun", "Long Apari", "Laham"],
+                "Laham": ["Laham", "Kaubun", "Long Apari", "Batu Engau"],
+                "Batu Engau": ["Batu Engau", "Laham", "Kaubun", "Rantau Pulung"],
+                "Kaubun": ["Kaubun", "Laham", "Long Hubung", "Long Apari"],
+                "Karangan": ["Karangan", "Sangkima", "Kaliorang", "Teluk Dalam"],
+                "Rantau Pulung": ["Rantau Pulung", "Long Mesangat", "Sangatta Utara", "Bengalon"]
+            },
+            "Kutai Barat": {
+                "Sendawar": ["Sendawar", "Dea Sangku", "Kongbeng", "Barong Tongkok"],
+                "Barong Tongkok": ["Barong Tongkok", "Jambuk", "Melak", "Long Iram"],
+                "Melak": ["Melak", "Sekolaq Darat", "Long Iram", "Damai"],
+                "Long Iram": ["Long Iram", "Dea Sangku", "Nyuatan", "Siluq Ngurai"],
+                "Sekolaq Darat": ["Sekolaq Darat", "Melak", "Barong Tongkok", "Jempang"],
+                "Jempang": ["Jempang", "Penyinggahan", "Bongan", "Sekolaq Darat"],
+                "Bongan": ["Bongan", "Jempang", "Penyinggahan", "Bentian Besar"],
+                "Penyinggahan": ["Penyinggahan", "Bentian Besar", "Linggang Bigung", "Bongan"],
+                "Bentian Besar": ["Bentian Besar", "Linggang Bigung", "Nyuatan", "Penyinggahan"],
+                "Linggang Bigung": ["Linggang Bigung", "Bentian Besar", "Nyuatan", "Siluq Ngurai"],
+                "Nyuatan": ["Nyuatan", "Siluq Ngurai", "Long Iram", "Linggang Bigung"],
+                "Siluq Ngurai": ["Siluq Ngurai", "Nyuatan", "Long Iram", "Linggang Bigung"],
+                "Damai": ["Damai", "Melak", "Long Masangat", "Muara Pahu"],
+                "Muara Pahu": ["Muara Pahu", "Damai", "Long Masangat", "Kelay"],
+                "Long Masangat": ["Long Masangat", "Muara Pahu", "Kelay", "Damai"],
+                "Kelay": ["Kelay", "Long Masangat", "Muara Pahu", "Long Pahangai"],
+                "Long Pahangai": ["Long Pahangai", "Kelay", "Muara Pahu", "Long Apari"],
+                "Long Apari": ["Long Apari", "Long Pahangai", "Kelay", "Muara Pahu"],
+                "Jambuk": ["Jambuk", "Barong Tongkok", "Sendawar", "Melak"],
+                "Dea Sangku": ["Dea Sangku", "Sendawar", "Long Iram", "Barong Tongkok"]
+            },
+            "Berau": {
+                "Tanjung Redeb": ["Tanjung Redeb", "Gunung Tabur", "Sambaliung", "Teluk Bayur"],
+                "Sambaliung": ["Sambaliung", "Gunung Tabur", "Pulau Derawan", "Talisayan"],
+                "Gunung Tabur": ["Gunung Tabur", "Sambaliung", "Tanjung Redeb", "Biduk-Biduk"],
+                "Pulau Derawan": ["Pulau Derawan", "Maratua", "Sambaliung", "Talisayan"],
+                "Maratua": ["Maratua", "Pulau Derawan", "Biduk-Biduk", "Talisayan"],
+                "Biduk-Biduk": ["Biduk-Biduk", "Talisayan", "Maratua", "Gunung Tabur"],
+                "Talisayan": ["Talisayan", "Biduk-Biduk", "Pulau Derawan", "Sambaliung"],
+                "Segah": ["Segah", "Kelay", "Teluk Bayur", "Tanjung Redeb"],
+                "Kelay": ["Kelay", "Segah", "Teluk Bayur", "Long Apari"],
+                "Teluk Bayur": ["Teluk Bayur", "Tanjung Redeb", "Segah", "Kelay"],
+                "Tabalar": ["Tabalar", "Sambaliung", "Gunung Tabur", "Biduk-Biduk"],
+                "Batu Putih": ["Batu Putih", "Talisayan", "Biduk-Biduk", "Maratua"],
+                "Biatan": ["Biatan", "Segah", "Kelay", "Teluk Bayur"]
+            },
+            "Paser": {
+                "Tanah Grogot": ["Tanah Grogot", "Batu Sopang", "Pasir Belengkong", "Kuaro"],
+                "Tanjung Harapan": ["Tanjung Harapan", "Kuaro", "Pasir Belengkong", "Long Ikis"],
+                "Kuaro": ["Kuaro", "Pasir Belengkong", "Long Ikis", "Tanjung Harapan"],
+                "Pasir Belengkong": ["Pasir Belengkong", "Long Ikis", "Kuaro", "Tanah Grogot"],
+                "Long Ikis": ["Long Ikis", "Pasir Belengkong", "Kuaro", "Muara Komam"],
+                "Muara Komam": ["Muara Komam", "Long Ikis", "Batu Sopang", "Tanah Grogot"],
+                "Batu Sopang": ["Batu Sopang", "Tanah Grogot", "Muara Komam", "Long Kali"],
+                "Long Kali": ["Long Kali", "Batu Sopang", "Muara Komam", "Muara Samu"],
+                "Muara Samu": ["Muara Samu", "Long Kali", "Batu Sopang", "Tanah Grogot"],
+                "Batu Engau": ["Batu Engau", "Long Kali", "Muara Samu", "Muara Komam"]
+            },
+            "Penajam Paser Utara": {
+                "Penajam": ["Penajam", "Lawe-Lawe", "Nipah-Nipah", "Pondok Labu"],
+                "Waru": ["Waru", "Lawe-Lawe", "Sepaku", "Babulu"],
+                "Sepaku": ["Sepaku", "Waru", "Babulu", "Penajam"],
+                "Babulu": ["Babulu", "Sepaku", "Waru", "Lawe-Lawe"],
+                "Lawe-Lawe": ["Lawe-Lawe", "Penajam", "Waru", "Babulu"]
+            },
+            "Mahakam Ulu": {
+                "Long Bagun": ["Long Bagun", "Laham", "Long Apari", "Long Hubung"],
+                "Laham": ["Laham", "Long Bagun", "Long Apari", "Long Pahangai"],
+                "Long Pahangai": ["Long Pahangai", "Laham", "Long Apari", "Long Hubung"],
+                "Long Apari": ["Long Apari", "Long Pahangai", "Long Bagun", "Laham"],
+                "Long Hubung": ["Long Hubung", "Long Bagun", "Long Pahangai", "Long Apari"]
+            }
+        };
+
+        // DOM elements
+        const tabs = {
+            input: document.getElementById('inputTab'),
+            monitoring: document.getElementById('monitoringTab'),
+            laporan: document.getElementById('laporanTab'),
+            dashboard: document.getElementById('dashboardTab')
+        };
+
+        const sections = {
+            input: document.getElementById('inputSection'),
+            monitoring: document.getElementById('monitoringSection'),
+            laporan: document.getElementById('laporanSection'),
+            dashboard: document.getElementById('dashboardSection')
+        };
+
+        // Tab switching
+        function switchTab(activeTab) {
+            Object.keys(tabs).forEach(key => {
+                if (key === activeTab) {
+                    tabs[key].className = 'px-4 py-2 rounded-md bg-blue-600 text-white font-medium transition-all text-sm';
+                    sections[key].classList.remove('hidden');
+                } else {
+                    tabs[key].className = 'px-4 py-2 rounded-md text-gray-600 hover:bg-gray-100 font-medium transition-all text-sm';
+                    sections[key].classList.add('hidden');
+                }
+            });
+
+            if (activeTab === 'monitoring') updateMonitoring();
+            if (activeTab === 'laporan') updateLaporan();
+            if (activeTab === 'dashboard') updateDashboard();
+        }
+
+        // Event listeners for tabs
+        tabs.input.addEventListener('click', () => switchTab('input'));
+        tabs.monitoring.addEventListener('click', () => switchTab('monitoring'));
+        tabs.laporan.addEventListener('click', () => switchTab('laporan'));
+        tabs.dashboard.addEventListener('click', () => switchTab('dashboard'));
+
+        // Location change handlers
+        document.getElementById('kabupaten').addEventListener('change', function() {
+            const kabupaten = this.value;
+            const kecamatanSelect = document.getElementById('kecamatan');
+            const desaSelect = document.getElementById('desa');
+            
+            // Reset kecamatan and desa
+            kecamatanSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
+            desaSelect.innerHTML = '<option value="">Pilih Desa</option>';
+            
+            if (kabupaten && locationData[kabupaten]) {
+                Object.keys(locationData[kabupaten]).forEach(kecamatan => {
+                    const option = document.createElement('option');
+                    option.value = kecamatan;
+                    option.textContent = kecamatan;
+                    kecamatanSelect.appendChild(option);
+                });
+            }
+        });
+
+        document.getElementById('kecamatan').addEventListener('change', function() {
+            const kabupaten = document.getElementById('kabupaten').value;
+            const kecamatan = this.value;
+            const desaSelect = document.getElementById('desa');
+            
+            // Reset desa
+            desaSelect.innerHTML = '<option value="">Pilih Desa</option>';
+            
+            if (kabupaten && kecamatan && locationData[kabupaten] && locationData[kabupaten][kecamatan]) {
+                locationData[kabupaten][kecamatan].forEach(desa => {
+                    const option = document.createElement('option');
+                    option.value = desa;
+                    option.textContent = desa;
+                    desaSelect.appendChild(option);
+                });
+            }
+        });
+
+        // Status pemanfaatan change handler
+        document.getElementById('statusPemanfaatan').addEventListener('change', function() {
+            const pemanfaatanSection = document.getElementById('pemanfaatanSection');
+            if (this.value === 'Sudah Dimanfaatkan') {
+                pemanfaatanSection.classList.remove('hidden');
+            } else {
+                pemanfaatanSection.classList.add('hidden');
+            }
+        });
+
+        // Image preview
+        document.getElementById('fotoAlat').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('imagePreview');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `<img src="${e.target.result}" class="image-preview rounded-lg border" alt="Preview foto alat">`;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.innerHTML = '';
+            }
+        });
+
+        // Form submission
+        document.getElementById('bantuanForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                id: Date.now(),
+                tahunProgram: document.getElementById('tahunProgram').value,
+                tanggalAlokasi: document.getElementById('tanggalAlokasi').value,
+                kategoriProgram: document.getElementById('kategoriProgram').value,
+                provinsi: document.getElementById('provinsi').value,
+                kabupaten: document.getElementById('kabupaten').value,
+                kecamatan: document.getElementById('kecamatan').value,
+                desa: document.getElementById('desa').value,
+                namaKelompok: document.getElementById('namaKelompok').value,
+                namaKetua: document.getElementById('namaKetua').value,
+                jenisAlat: document.getElementById('jenisAlat').value,
+                merkAlat: document.getElementById('merkAlat').value,
+                jumlahUnit: parseInt(document.getElementById('jumlahUnit').value),
+                kondisiAlat: document.getElementById('kondisiAlat').value,
+                statusPemanfaatan: document.getElementById('statusPemanfaatan').value,
+                bulanPemanfaatan: document.getElementById('bulanPemanfaatan').value,
+                penggunaanHarian: parseFloat(document.getElementById('penggunaanHarian').value) || 0,
+                penggunaanTahunan: parseInt(document.getElementById('penggunaanTahunan').value) || 0,
+                biayaSewa: parseInt(document.getElementById('biayaSewa').value) || 0,
+                hasilAlat: document.getElementById('hasilAlat').value,
+                kendala: document.getElementById('kendala').value,
+                fotoAlat: document.getElementById('imagePreview').innerHTML
+            };
+
+            bantuanData.push(formData);
+            localStorage.setItem('bantuanAlatData', JSON.stringify(bantuanData));
+            
+            // Show success modal
+            document.getElementById('successModal').classList.remove('hidden');
+            document.getElementById('successModal').classList.add('flex');
+            
+            // Reset form
+            this.reset();
+            document.getElementById('imagePreview').innerHTML = '';
+            document.getElementById('pemanfaatanSection').classList.add('hidden');
+        });
+
+        // Close success modal
+        document.getElementById('closeSuccessModal').addEventListener('click', function() {
+            document.getElementById('successModal').classList.add('hidden');
+            document.getElementById('successModal').classList.remove('flex');
+        });
+
+        // Update monitoring
+        function updateMonitoring() {
+            updateTableWithData(bantuanData);
+        }
+
+        // Get status color
+        function getStatusColor(status) {
+            switch(status) {
+                case 'Sudah Dimanfaatkan': return 'bg-green-100 text-green-800';
+                case 'Belum Dimanfaatkan': return 'bg-red-100 text-red-800';
+                case 'Dalam Proses': return 'bg-yellow-100 text-yellow-800';
+                default: return 'bg-gray-100 text-gray-800';
+            }
+        }
+
+        // Show detail modal
+        function showDetail(id) {
+            const item = bantuanData.find(data => data.id === id);
+            if (!item) return;
+
+            const detailContent = document.getElementById('detailContent');
+            detailContent.innerHTML = `
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-3">Informasi Program</h4>
+                        <div class="space-y-2 text-sm">
+                            <div><span class="font-medium">Tahun:</span> ${item.tahunProgram}</div>
+                            <div><span class="font-medium">Tanggal Alokasi:</span> ${new Date(item.tanggalAlokasi).toLocaleDateString('id-ID')}</div>
+                            <div><span class="font-medium">Kategori:</span> ${item.kategoriProgram}</div>
+                        </div>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-3 mt-6">Lokasi</h4>
+                        <div class="space-y-2 text-sm">
+                            <div><span class="font-medium">Provinsi:</span> ${item.provinsi}</div>
+                            <div><span class="font-medium">Kabupaten:</span> ${item.kabupaten}</div>
+                            <div><span class="font-medium">Kecamatan:</span> ${item.kecamatan}</div>
+                            <div><span class="font-medium">Desa:</span> ${item.desa}</div>
+                        </div>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-3 mt-6">Kelompok Tani</h4>
+                        <div class="space-y-2 text-sm">
+                            <div><span class="font-medium">Nama Kelompok:</span> ${item.namaKelompok}</div>
+                            <div><span class="font-medium">Nama Ketua:</span> ${item.namaKetua}</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-3">Detail Alat</h4>
+                        <div class="space-y-2 text-sm">
+                            <div><span class="font-medium">Jenis Alat:</span> ${item.jenisAlat}</div>
+                            <div><span class="font-medium">Merk:</span> ${item.merkAlat}</div>
+                            <div><span class="font-medium">Jumlah Unit:</span> ${item.jumlahUnit}</div>
+                            <div><span class="font-medium">Kondisi:</span> ${item.kondisiAlat}</div>
+                            <div><span class="font-medium">Status:</span> ${item.statusPemanfaatan}</div>
+                        </div>
+                        
+                        ${item.statusPemanfaatan === 'Sudah Dimanfaatkan' ? `
+                        <h4 class="font-semibold text-gray-800 mb-3 mt-6">Data Pemanfaatan</h4>
+                        <div class="space-y-2 text-sm">
+                            <div><span class="font-medium">Bulan Mulai:</span> ${item.bulanPemanfaatan}</div>
+                            <div><span class="font-medium">Penggunaan Harian:</span> ${item.penggunaanHarian} jam</div>
+                            <div><span class="font-medium">Penggunaan Tahunan:</span> ${item.penggunaanTahunan} hari</div>
+                            <div><span class="font-medium">Biaya Sewa:</span> Rp ${item.biayaSewa.toLocaleString()}/hari</div>
+                            <div><span class="font-medium">Hasil:</span> ${item.hasilAlat}</div>
+                        </div>
+                        ` : ''}
+                        
+                        ${item.kendala ? `
+                        <h4 class="font-semibold text-gray-800 mb-3 mt-6">Kendala</h4>
+                        <div class="text-sm bg-gray-50 p-3 rounded">${item.kendala}</div>
+                        ` : ''}
+                        
+                        ${item.fotoAlat ? `
+                        <h4 class="font-semibold text-gray-800 mb-3 mt-6">Foto Alat</h4>
+                        <div>${item.fotoAlat}</div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('detailModal').classList.remove('hidden');
+            document.getElementById('detailModal').classList.add('flex');
+        }
+
+        // Close detail modal
+        document.getElementById('closeDetailModal').addEventListener('click', function() {
+            document.getElementById('detailModal').classList.add('hidden');
+            document.getElementById('detailModal').classList.remove('flex');
+        });
+
+        // Update laporan
+        function updateLaporan() {
+            const totalBantuan = bantuanData.length;
+            const totalPrapanen = bantuanData.filter(item => item.kategoriProgram === 'Prapanen').length;
+            const totalPascapanen = bantuanData.filter(item => item.kategoriProgram === 'Pascapanen').length;
+            const totalDimanfaatkan = bantuanData.filter(item => item.statusPemanfaatan === 'Sudah Dimanfaatkan').length;
+
+            document.getElementById('totalBantuan').textContent = totalBantuan;
+            document.getElementById('totalPrapanen').textContent = totalPrapanen;
+            document.getElementById('totalPascapanen').textContent = totalPascapanen;
+            document.getElementById('totalDimanfaatkan').textContent = totalDimanfaatkan;
+        }
+
+        // Update dashboard
+        function updateDashboard() {
+            const totalUnit = bantuanData.reduce((sum, item) => sum + item.jumlahUnit, 0);
+            const totalKelompok = new Set(bantuanData.map(item => item.namaKelompok)).size;
+            const persentasePemanfaatan = bantuanData.length > 0 ? 
+                Math.round((bantuanData.filter(item => item.statusPemanfaatan === 'Sudah Dimanfaatkan').length / bantuanData.length) * 100) : 0;
+
+            document.getElementById('totalUnit').textContent = totalUnit;
+            document.getElementById('totalKelompok').textContent = totalKelompok;
+            document.getElementById('persentasePemanfaatan').textContent = persentasePemanfaatan + '%';
+
+            // Top provinsi
+            const provinsiCount = {};
+            bantuanData.forEach(item => {
+                provinsiCount[item.provinsi] = (provinsiCount[item.provinsi] || 0) + 1;
+            });
+            
+            const topProvinsi = Object.entries(provinsiCount)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 5);
+
+            document.getElementById('topProvinsi').innerHTML = topProvinsi.length > 0 ? 
+                topProvinsi.map(([provinsi, count]) => `
+                    <div class="flex justify-between items-center py-2 border-b">
+                        <span>${provinsi}</span>
+                        <span class="font-semibold">${count}</span>
+                    </div>
+                `).join('') : '<div class="text-gray-500 text-center py-8">Data akan muncul setelah input</div>';
+
+            // Top alat
+            const alatCount = {};
+            bantuanData.forEach(item => {
+                alatCount[item.jenisAlat] = (alatCount[item.jenisAlat] || 0) + item.jumlahUnit;
+            });
+            
+            const topAlat = Object.entries(alatCount)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 5);
+
+            document.getElementById('topAlat').innerHTML = topAlat.length > 0 ? 
+                topAlat.map(([alat, count]) => `
+                    <div class="flex justify-between items-center py-2 border-b">
+                        <span>${alat}</span>
+                        <span class="font-semibold">${count} unit</span>
+                    </div>
+                `).join('') : '<div class="text-gray-500 text-center py-8">Data akan muncul setelah input</div>';
+        }
+
+        // Excel export functionality
+        document.getElementById('exportExcelBtn').addEventListener('click', function() {
+            if (bantuanData.length === 0) {
+                alert('Tidak ada data untuk diekspor.');
+                return;
+            }
+
+            // Create Excel-compatible CSV with BOM for proper UTF-8 encoding
+            const BOM = '\uFEFF';
+            const headers = [
+                'No', 'Tahun Program', 'Tanggal Alokasi', 'Kategori Program', 'Provinsi', 'Kabupaten/Kota', 
+                'Kecamatan', 'Desa', 'Nama Gapoktan/Poktan', 'Nama Ketua', 'Jenis Alat', 'Merk Alat', 
+                'Jumlah Unit', 'Kondisi Alat', 'Status Pemanfaatan', 'Bulan Pemanfaatan', 
+                'Rata-rata Penggunaan/Hari (Jam)', 'Penggunaan dalam 1 Tahun (Hari)', 
+                'Biaya Sewa (Rp/Hari)', 'Hasil dari Alat', 'Kendala'
+            ];
+
+            const csvContent = BOM + [
+                headers.join(','),
+                ...bantuanData.map((item, index) => [
+                    index + 1,
+                    item.tahunProgram,
+                    new Date(item.tanggalAlokasi).toLocaleDateString('id-ID'),
+                    item.kategoriProgram,
+                    item.provinsi,
+                    item.kabupaten,
+                    item.kecamatan,
+                    item.desa,
+                    `"${item.namaKelompok}"`,
+                    `"${item.namaKetua}"`,
+                    `"${item.jenisAlat}"`,
+                    `"${item.merkAlat}"`,
+                    item.jumlahUnit,
+                    item.kondisiAlat,
+                    item.statusPemanfaatan,
+                    item.bulanPemanfaatan || '-',
+                    item.penggunaanHarian || 0,
+                    item.penggunaanTahunan || 0,
+                    item.biayaSewa || 0,
+                    item.hasilAlat || '-',
+                    `"${item.kendala || '-'}"`
+                ].join(','))
+            ].join('\n');
+
+            // Create and download file
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `Data_Bantuan_Alat_Pertanian_Kaltim_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Show success message
+            alert('Data berhasil diekspor ke Excel! File dapat dibuka dengan Microsoft Excel atau Google Sheets.');
+        });
+
+        // Filter functionality
+        document.getElementById('filterTahun').addEventListener('change', applyFilters);
+        document.getElementById('filterKategori').addEventListener('change', applyFilters);
+        document.getElementById('searchMonitoring').addEventListener('input', applyFilters);
+
+        function applyFilters() {
+            const tahunFilter = document.getElementById('filterTahun').value;
+            const kategoriFilter = document.getElementById('filterKategori').value;
+            const searchTerm = document.getElementById('searchMonitoring').value.toLowerCase();
+
+            let filteredData = bantuanData;
+
+            if (tahunFilter) {
+                filteredData = filteredData.filter(item => item.tahunProgram === tahunFilter);
+            }
+
+            if (kategoriFilter) {
+                filteredData = filteredData.filter(item => item.kategoriProgram === kategoriFilter);
+            }
+
+            if (searchTerm) {
+                filteredData = filteredData.filter(item => 
+                    item.namaKelompok.toLowerCase().includes(searchTerm) ||
+                    item.namaKetua.toLowerCase().includes(searchTerm) ||
+                    item.jenisAlat.toLowerCase().includes(searchTerm) ||
+                    item.kabupaten.toLowerCase().includes(searchTerm) ||
+                    item.kecamatan.toLowerCase().includes(searchTerm) ||
+                    item.desa.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            updateTableWithData(filteredData);
+        }
+
+        function updateTableWithData(data) {
+            const tableBody = document.getElementById('monitoringTableBody');
+            
+            if (data.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="9" class="border border-gray-200 px-3 py-8 text-center text-gray-500">
+                            Tidak ada data yang sesuai dengan filter.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tableBody.innerHTML = data.map((item, index) => `
+                <tr class="hover:bg-gray-50">
+                    <td class="border border-gray-200 px-3 py-2">${index + 1}</td>
+                    <td class="border border-gray-200 px-3 py-2">${item.tahunProgram}</td>
+                    <td class="border border-gray-200 px-3 py-2">${item.kabupaten}, ${item.kecamatan}</td>
+                    <td class="border border-gray-200 px-3 py-2">${item.namaKelompok}</td>
+                    <td class="border border-gray-200 px-3 py-2">${item.namaKetua}</td>
+                    <td class="border border-gray-200 px-3 py-2">${item.jenisAlat}</td>
+                    <td class="border border-gray-200 px-3 py-2">${item.jumlahUnit}</td>
+                    <td class="border border-gray-200 px-3 py-2">
+                        <span class="px-2 py-1 rounded-full text-xs ${getStatusColor(item.statusPemanfaatan)}">
+                            ${item.statusPemanfaatan}
+                        </span>
+                    </td>
+                    <td class="border border-gray-200 px-3 py-2">
+                        <button onclick="showDetail(${item.id})" class="text-blue-600 hover:text-blue-800 text-sm">
+                            👁️ Detail
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Set default date to today
+        document.getElementById('tanggalAlokasi').valueAsDate = new Date();
+
+        // Initialize
+        updateMonitoring();
+        updateLaporan();
+        updateDashboard();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'967334fc77c1601c',t:'MTc1Mzg2MTIxNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
